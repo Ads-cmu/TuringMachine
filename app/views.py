@@ -5,7 +5,9 @@ from django.http import JsonResponse
 import requests
 import time
 
-# Create your views here.
+def game_home_page(request):
+    return JsonResponse({'text':'welcome'}) #placeholder, not sure what to put here
+
 def create_game(request, name):
     try:
         ai_model = AI.objects.get(name=name)
@@ -14,7 +16,7 @@ def create_game(request, name):
 
     a_is_model = random.choice([True, False])
     game = Game.objects.create(A_is_model=a_is_model, model_id=ai_model)
-
+    game.save()
     return JsonResponse({'game_id': game.id})
 
 def fetch_responses(request, question, game_id):
@@ -32,10 +34,13 @@ def fetch_responses(request, question, game_id):
         return JsonResponse({'response_a':round.model_answer,'response_b':round.human_answer, 'game_id':game.id})
     return JsonResponse({'response_b':round.model_answer,'response_a':round.human_answer, 'game_id':game.id})
 
-def fetch_question():
-    all_rounds = Round.objects.all()
+
+def fetch_question(request, game_id):
+    all_rounds = Round.objects.filter(game_id=game_id)
     for round in all_rounds:
         if round.human_answer is None:
-            return JsonResponse({'question':round.question})
+            return JsonResponse({'is_question':True,'question':round.question})
+    return {'is_question':False,'question':'NA'}
+
 # def post_human_response():
     
