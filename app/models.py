@@ -6,7 +6,7 @@ class AI(models.Model):
     endpoint = models.CharField(max_length=300)
 
 class Game(models.Model):
-    A_is_model = models.BooleanField(null=True)
+    a_is_model = models.BooleanField(null=True)
     user_guess = models.CharField(max_length=30, blank=True,null=True)
     model_id = models.ForeignKey(AI, on_delete=models.PROTECT)
 
