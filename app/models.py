@@ -9,6 +9,7 @@ class Game(models.Model):
     a_is_model = models.BooleanField(null=True)
     user_guess = models.CharField(max_length=30, blank=True,null=True)
     model_id = models.ForeignKey(AI, on_delete=models.PROTECT)
+    create_time = models.DateTimeField()
 
 class Round(models.Model):
     game_id = models.ForeignKey(Game, on_delete=models.PROTECT)
