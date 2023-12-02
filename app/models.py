@@ -13,7 +13,7 @@ class Game(models.Model):
 class Round(models.Model):
     game_id = models.ForeignKey(Game, on_delete=models.PROTECT)
     question = models.CharField(max_length=300)
-    answer_a = models.CharField(max_length=300, blank=True,null=True)
-    answer_b = models.CharField(max_length=300, blank=True,null=True)
+    model_answer = models.CharField(max_length=300, blank=True,null=True)
+    human_answer = models.CharField(max_length=300, blank=True,null=True)
 
                             

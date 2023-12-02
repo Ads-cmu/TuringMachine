@@ -8,7 +8,7 @@ import time
 # Create your views here.
 def create_game(request, name):
     try:
-        ai_model = AI.objects.get(name=name)[0]
+        ai_model = AI.objects.get(name=name)
     except AI.DoesNotExist:
         return JsonResponse({'error': 'Model not found'}, status=404)
 
@@ -20,17 +20,20 @@ def create_game(request, name):
 def fetch_responses(request, question, game_id):
     global question_global, human_response_global
     
-    game = Game.objects.get(id=game_id)[0]
-    model = AI.objects.get(id=game.model_id)[0]
+    game = Game.objects.get(id=game_id)
+    model = AI.objects.get(id=game.model_id)
 
     round = Round.objects.create(game_id=game.id, question=question)
-
-    question_global = question
-    model_response = requests.get(model.endpoint+'?question='+question)
-    
-    while human_response_global is None:
+    model_answer = requests.get(model.endpoint+'?question='+question)
+    while round.human_answer is None:
+        round = Round.objects.get(id=round.id)
         time.sleep(0.1) #sleep 100ms
-    
+    round.model_answer=model_answer
+    round.save()
+    if game.a_is_model:
+        return JsonResponse({'response_a':round.model_answer,'response_b':round.human_answer, 'game_id':game.id})
+    return JsonResponse({'response_b':round.model_answer,'response_a':round.human_answer, 'game_id':game.id})
+
 
 
 # def fetch_question():
