@@ -18,8 +18,6 @@ def create_game(request, name):
     return JsonResponse({'game_id': game.id})
 
 def fetch_responses(request, question, game_id):
-    global question_global, human_response_global
-    
     game = Game.objects.get(id=game_id)
     model = AI.objects.get(id=game.model_id)
 
@@ -34,9 +32,10 @@ def fetch_responses(request, question, game_id):
         return JsonResponse({'response_a':round.model_answer,'response_b':round.human_answer, 'game_id':game.id})
     return JsonResponse({'response_b':round.model_answer,'response_a':round.human_answer, 'game_id':game.id})
 
-
-
-# def fetch_question():
-
+def fetch_question():
+    all_rounds = Round.objects.all()
+    for round in all_rounds:
+        if round.human_answer is None:
+            return JsonResponse({'question':round.question})
 # def post_human_response():
     
