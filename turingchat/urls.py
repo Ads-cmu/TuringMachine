@@ -20,8 +20,8 @@ from app import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.game_home_page, name="home_page"),
-    path('create_game.html',views.create_game, name="new_game"),
+    path('create_game.html',views.create_game, name="create_game"),
     path('human_response.html',views.human_home_page,name="human_response"),
     path('fetch_question.html',views.fetch_question,name="fetch_question"),
-    path('fetch_responses.html',views.fetch_question,name="fetch_responses")
+    path('fetch_responses.html',views.fetch_responses,name="fetch_responses")
 ]
