@@ -6,7 +6,7 @@ from django.utils import timezone
 import requests
 import time
 from django.views.decorators.http import require_http_methods
-from impersonate import get_model_response
+from app.impersonate import get_model_response
 
 def game_home_page(request):
     players = [model.user for model in AI.objects.all()]
