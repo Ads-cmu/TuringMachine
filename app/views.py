@@ -30,8 +30,8 @@ def fetch_responses(request):
     question = request.GET.get('question')
     game_id = request.GET.get('game_id')
     game = Game.objects.get(id=game_id)
-    model = game.model_id
     round = Round.objects.create(game_id=game, question=question)
+    model = game.model_id
     model_answer = get_model_response(question, model)
     while round.human_answer is None:
         round = Round.objects.get(id=round.id)

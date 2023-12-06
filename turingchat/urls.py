@@ -21,9 +21,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.game_home_page, name="home_page"),
     path('create_game.html',views.create_game, name="create_game"),
+    path('fetch_responses.html/',views.fetch_responses,name="fetch_responses")
     path('human_response.html',views.fetch_question,name="human_response"),
     path('feedback.html',views.check_guess,name="fetch_question"),
-    path('fetch_responses.html/',views.fetch_responses,name="fetch_responses")
 ]
 
 '''
