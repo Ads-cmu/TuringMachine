@@ -6,6 +6,7 @@ from django.utils import timezone
 import requests
 import time
 from django.views.decorators.http import require_http_methods
+from impersonate import get_model_response
 
 def game_home_page(request):
     players = [model.user for model in AI.objects.all()]
@@ -29,10 +30,9 @@ def fetch_responses(request):
     question = request.GET.get('question')
     game_id = request.GET.get('game_id')
     game = Game.objects.get(id=game_id)
-    model = AI.objects.get(id=game.model_id.id)
+    model = game.model
     round = Round.objects.create(game_id=game, question=question)
-    model_answer = "Placeholder"#requests.get(model.endpoint+'?question='+question)
-    print(f"reached {round.id}")
+    model_answer = get_model_response(question)
     while round.human_answer is None:
         round = Round.objects.get(id=round.id)
         time.sleep(0.1) #sleep 100ms
@@ -55,10 +55,11 @@ def save_feedback(request, difficulty, reason, comment):
 
 def fetch_question(request):
     game = Game.objects.last()
+    model = game.model
     all_rounds = Round.objects.filter(game_id=game.id)
     for round in all_rounds:
         if round.human_answer is None:
-            return JsonResponse({'round_id':round.id,'is_question':True,'question':round.question}) #add person
+            return JsonResponse({'human':model.user,'round_id':round.id,'is_question':True,'question':round.question})
     return JsonResponse({'is_question':False,'question':'NA'})
 
 #make get request to receive response 
