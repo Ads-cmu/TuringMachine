@@ -5,6 +5,7 @@ import torch
 from transformers import (
     AutoModelForCausalLM,
     AutoTokenizer,
+    PeftModel
     # BitsAndBytesConfig,
     # TrainingArguments,
     # pipeline,
@@ -13,12 +14,13 @@ from transformers import (
 # from peft import LoraConfig
 # from trl import SFTTrainer
 
-def get_model_response(question, model):
+def get_model_response(question, person):
 
     #my_model = 'MeghanaArakkal/TuringChat'
 
     model_id="NousResearch/Llama-2-7b-chat-hf"
-    model = AutoModelForCausalLM.from_pretrained(model.endpoint,load_in_8bit=True,device_map="auto")
+    model = AutoModelForCausalLM.from_pretrained(model_id,load_in_8bit=True,device_map="auto")
+    model = PeftModel.from_pretrained(model, person.endpoint, device_map="auto")
     tokenizer = AutoTokenizer.from_pretrained(model_id)
 
     model.eval()
@@ -28,7 +30,7 @@ def get_model_response(question, model):
     User (John): {QUESTION}
     Meghana:
     """
-    prompt = eval_prompt.format(NAME=model.user,QUESTION=question)
+    prompt = eval_prompt.format(NAME=person.user,QUESTION=question)
     model_input = tokenizer(prompt, return_tensors="pt").to("cuda")
 
     with torch.no_grad():
