@@ -25,3 +25,22 @@ urlpatterns = [
     path('feedback.html',views.check_guess,name="fetch_question"),
     path('fetch_responses.html/',views.fetch_responses,name="fetch_responses")
 ]
+
+'''
+Tests:
+game_home_page
+
+create_game name
+http://34.228.80.251:8000/create_game.html?name=Meghana
+
+fetch_responses question, game_id
+http://34.228.80.251:8000/fetch_responses.html?question=Hi&game_id=1
+
+check_guess guess, game_id
+
+save_feedback difficulty, reason, comment
+
+fetch_question
+
+save_human_response round_id, answer
+'''

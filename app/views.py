@@ -30,7 +30,7 @@ def fetch_responses(request):
     question = request.GET.get('question')
     game_id = request.GET.get('game_id')
     game = Game.objects.get(id=game_id)
-    model = game.model
+    model = game.model_id
     round = Round.objects.create(game_id=game, question=question)
     model_answer = get_model_response(question, model)
     while round.human_answer is None:
@@ -44,12 +44,17 @@ def fetch_responses(request):
         context = {'response_b':round.model_answer,'response_a':round.human_answer, 'game_id':game.id, 'round_id':round.id}
     return JsonResponse(context)
 
-def check_guess(request, guess, game_id):
+def check_guess(request):
+    guess = request.GET.get('guess')
+    game_id = request.GET.get('game_id')
     game = Game.objects.get(id=game_id)
     win = guess==game.a_is_model
     return JsonResponse({'win':win}) 
 
-def save_feedback(request, difficulty, reason, comment):
+def save_feedback(request):
+    difficulty = request.GET.get('difficulty')
+    reason = request.GET.get('reason')
+    comment = request.GET.get('comment')
     feedback = Feedback.objects.create(difficulty=difficulty, reason=reason, comment=comment)
     return JsonResponse({'saved_feedback':True}) #we should give the user feedback that their feedback has been saved
 
@@ -63,7 +68,9 @@ def fetch_question(request):
     return JsonResponse({'is_question':False,'question':'NA'})
 
 #make get request to receive response 
-def save_human_response(request, round_id, answer):
+def save_human_response(request):
+    round_id = request.GET.get('round_id')
+    answer = request.GET.get('answer')
     round = Round.objects.get(id=round_id)
     round.human_answer=answer
     round.save()
