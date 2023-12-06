@@ -32,7 +32,7 @@ def fetch_responses(request):
     game = Game.objects.get(id=game_id)
     model = game.model
     round = Round.objects.create(game_id=game, question=question)
-    model_answer = get_model_response(question)
+    model_answer = get_model_response(question, model)
     while round.human_answer is None:
         round = Round.objects.get(id=round.id)
         time.sleep(0.1) #sleep 100ms

@@ -13,21 +13,22 @@ from transformers import (
 # from peft import LoraConfig
 # from trl import SFTTrainer
 
-def get_model_response(question):
-    my_model = 'MeghanaArakkal/TuringChat'
+def get_model_response(question, model):
+
+    #my_model = 'MeghanaArakkal/TuringChat'
 
     model_id="NousResearch/Llama-2-7b-chat-hf"
-    model = AutoModelForCausalLM.from_pretrained(my_model,load_in_8bit=True,device_map="auto")
+    model = AutoModelForCausalLM.from_pretrained(model.endpoint,load_in_8bit=True,device_map="auto")
     tokenizer = AutoTokenizer.from_pretrained(model_id)
 
     model.eval()
 
-    eval_prompt = f"""
-    Reply to the following messages as the user Meghana. Provide just one reply, do not continue the conversation
-    User (John): {question}
+    eval_prompt = """
+    Reply to the following messages as the user {NAME}. Provide just one reply, do not continue the conversation
+    User (John): {QUESTION}
     Meghana:
     """
-    prompt = eval_prompt.format(question=question)
+    prompt = eval_prompt.format(NAME=model.user,QUESTION=question)
     model_input = tokenizer(prompt, return_tensors="pt").to("cuda")
 
     with torch.no_grad():
