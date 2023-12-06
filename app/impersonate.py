@@ -5,7 +5,6 @@ import torch
 from transformers import (
     AutoModelForCausalLM,
     AutoTokenizer,
-    PeftModel
     # BitsAndBytesConfig,
     # TrainingArguments,
     # pipeline,
@@ -13,6 +12,7 @@ from transformers import (
 )
 # from peft import LoraConfig
 # from trl import SFTTrainer
+from peft import PeftModel
 
 def get_model_response(question, person):
 
