@@ -36,9 +36,10 @@ create_game name
 http://34.228.80.251:8000/create_game.html?name=Meghana
 
 fetch_responses question, game_id
-http://34.228.80.251:8000/fetch_responses.html?question=Hi&game_id=1
+http://34.228.80.251:8000/fetch_responses.html?question=Hi&game_id=2
 
 check_guess guess, game_id
+http://34.228.80.251:8000/check_guess.html?guess=False&game_id=2
 
 save_feedback difficulty, reason, comment
 
