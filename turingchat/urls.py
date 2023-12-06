@@ -40,10 +40,13 @@ http://34.228.80.251:8000/fetch_responses.html?question=Hi&game_id=2
 
 check_guess guess, game_id
 http://34.228.80.251:8000/check_guess.html?guess=False&game_id=2
+http://34.228.80.251:8000/check_guess.html?guess=True&game_id=2
 
 save_feedback difficulty, reason, comment
+http://34.228.80.251:8000/feedback.html?difficulty=3&reason=Style&comment=Great
 
 fetch_question
+http://34.228.80.251:8000/fetch_question.html
 
 save_human_response round_id, answer
 '''
