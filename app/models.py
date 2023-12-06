@@ -18,6 +18,8 @@ class Round(models.Model):
     human_answer = models.CharField(max_length=300, blank=True,null=True)
 
 class Feedback(models.Model):
-    difficulty = 
+    difficulty = models.CharField(max_length=300, blank=True,null=True)
+    reason = models.CharField(max_length=300, blank=True,null=True)
+    comment = models.CharField(max_length=300, blank=True,null=True)
 
                             
