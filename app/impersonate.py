@@ -36,5 +36,6 @@ def get_model_response(question, person):
     with torch.no_grad():
         answer = tokenizer.decode(model.generate(**model_input, max_new_tokens=250,do_sample=True)[0], skip_special_tokens=True)
     
+    answer=answer[len(prompt):]
     return answer
 
