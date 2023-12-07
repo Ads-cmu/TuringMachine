@@ -14,6 +14,13 @@ from transformers import (
 # from trl import SFTTrainer
 from peft import PeftModel
 
+def check_answer(text):
+    if '/' in text:
+        return True
+    if '\\' in text:
+        return True
+    return False
+
 def get_model_response(question, person):
 
     #my_model = 'MeghanaArakkal/TuringChat'
@@ -27,15 +34,20 @@ def get_model_response(question, person):
 
     eval_prompt = """
     Reply to the following messages as the user {NAME}. Provide just one reply, do not continue the conversation
-    User (John): {QUESTION}
-    Meghana:
+    User (John): {QUESTION}[/]
+    {NAME}:
     """
     prompt = eval_prompt.format(NAME=person.user,QUESTION=question)
     model_input = tokenizer(prompt, return_tensors="pt").to("cuda")
 
-    with torch.no_grad():
-        answer = tokenizer.decode(model.generate(**model_input, max_new_tokens=250,do_sample=True)[0], skip_special_tokens=True)
+    retry = True
+    count=0
+    while retry and count<3:
+        with torch.no_grad():
+            answer = tokenizer.decode(model.generate(**model_input, max_new_tokens=150,do_sample=True)[0], skip_special_tokens=True)
+        answer=answer[len(prompt):]
+        retry = check_answer(answer)
+        count+=1
     
-    answer=answer[len(prompt):]
     return answer
 
