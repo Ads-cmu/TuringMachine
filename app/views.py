@@ -53,6 +53,7 @@ def check_guess(request):
         model_answer = "A"
     else:
         model_answer = "B"
+    print(guess, model_answer)
     if model_answer != guess:
         win = True
     else:
