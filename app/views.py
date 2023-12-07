@@ -59,7 +59,9 @@ def save_feedback(request):
     difficulty = request.GET.get('difficulty')
     reason = request.GET.get('reason')
     comment = request.GET.get('comment')
-    feedback = Feedback.objects.create(difficulty=difficulty, reason=reason, comment=comment)
+    game_id = request.GET.get('game_id')
+    game = Game.objects.get(id=game_id)
+    feedback = Feedback.objects.create(game=game,difficulty=difficulty, reason=reason, comment=comment)
     return JsonResponse({'saved_feedback':True}) #we should give the user feedback that their feedback has been saved
 
 def fetch_question(request):

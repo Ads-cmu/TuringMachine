@@ -20,6 +20,7 @@ class Round(models.Model):
     human_answer = models.CharField(max_length=300, blank=True,null=True)
 
 class Feedback(models.Model):
+    game = models.ForeignKey(Game, on_delete=models.PROTECT)
     difficulty = models.CharField(max_length=300, blank=True,null=True)
     reason = models.CharField(max_length=300, blank=True,null=True)
     comment = models.CharField(max_length=300, blank=True,null=True)

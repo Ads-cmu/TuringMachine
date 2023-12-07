@@ -19,7 +19,7 @@ def check_answer(text):
         return True
     if '\\' in text:
         return True
-    return False
+    return not any(char.isalpha() for char in text)
 
 def get_model_response(question, person):
 
