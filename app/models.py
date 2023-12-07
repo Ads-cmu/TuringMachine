@@ -10,6 +10,8 @@ class Game(models.Model):
     user_guess = models.CharField(max_length=30, blank=True,null=True)
     model_id = models.ForeignKey(AI, on_delete=models.PROTECT)
     create_time = models.DateTimeField()
+    correct_guess = models.BooleanField(null=True, blank=True)
+    num_questions = models.IntegerField(null=True, blank=True)
 
 class Round(models.Model):
     game_id = models.ForeignKey(Game, on_delete=models.PROTECT)

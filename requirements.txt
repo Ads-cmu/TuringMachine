@@ -4,3 +4,4 @@ django
 peft
 bitsandbytes
 scipy
+Django
