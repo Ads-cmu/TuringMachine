@@ -15,6 +15,7 @@ def game_home_page(request):
 
 def create_game(request):
     name = request.GET.get('name')
+    difficulty = request.GET.get('difficulty')
     if name is None:
         name="Meghana"
     try:
@@ -23,7 +24,7 @@ def create_game(request):
         return JsonResponse({'error': 'Model not found'}, status=404)
 
     a_is_model = random.choice([True, False])
-    game = Game.objects.create(a_is_model=a_is_model, model_id=ai_model, create_time=timezone.now())
+    game = Game.objects.create(a_is_model=a_is_model, model_id=ai_model, create_time=timezone.now(),difficulty=difficulty)
     return JsonResponse({'game_id': game.id})
 
 def fetch_responses(request):
