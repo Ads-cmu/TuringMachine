@@ -5,3 +5,4 @@ peft
 bitsandbytes
 scipy
 Django
+django-cors-headers
