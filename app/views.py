@@ -48,12 +48,10 @@ def fetch_responses(request):
 def check_guess(request):
     guess = request.GET.get('guess')
     game_id = request.GET.get('game_id')
-    num_questions = int(request.GET.get('num_questions'))
     game = Game.objects.get(id=game_id)
     guess = guess == 'True'
     win = guess==game.a_is_model
     game.correct_guess=win
-    game.num_questions = num_questions
     game.save()
     return JsonResponse({'win':win}) 
 

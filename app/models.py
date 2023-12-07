@@ -12,7 +12,6 @@ class Game(models.Model):
     create_time = models.DateTimeField()
     difficulty = models.IntegerField(null=True, blank=True)
     correct_guess = models.BooleanField(null=True, blank=True)
-    num_questions = models.IntegerField(null=True, blank=True)
 
 class Round(models.Model):
     game_id = models.ForeignKey(Game, on_delete=models.PROTECT)
