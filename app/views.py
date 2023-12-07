@@ -50,10 +50,10 @@ def check_guess(request):
     game_id = request.GET.get('game_id')
     game = Game.objects.get(id=game_id)
     if game.a_is_model:
-        actual_answer = "A"
+        model_answer = "A"
     else:
-        actual_answer = "B"
-    if actual_answer == guess:
+        model_answer = "B"
+    if model_answer != guess:
         win = True
     else:
         win = False
