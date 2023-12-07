@@ -72,6 +72,8 @@ def save_feedback(request):
 
 def fetch_question(request):
     game = Game.objects.last()
+    if game is None:
+        return JsonResponse({'is_question':False,'question':'NA'})
     model = game.model_id
     all_rounds = Round.objects.filter(game_id=game.id) #handle no games
     for round in all_rounds:

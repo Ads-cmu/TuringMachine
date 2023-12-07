@@ -44,7 +44,7 @@ def get_model_response(question, person):
     count=0
     while retry and count<3:
         with torch.no_grad():
-            answer = tokenizer.decode(model.generate(**model_input, max_new_tokens=150,do_sample=True)[0], skip_special_tokens=True)
+            answer = tokenizer.decode(model.generate(**model_input, max_new_tokens=50,do_sample=True)[0], skip_special_tokens=True)
         print("COUNT")
         print(count)
         print("ANSWER")
