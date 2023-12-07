@@ -20,12 +20,12 @@ from app import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.game_home_page, name="home_page"),
-    path('create_game.html',views.create_game, name="create_game"),
-    path('fetch_responses.html',views.fetch_responses,name="fetch_responses"),
-    path('check_guess.html',views.check_guess,name="check_guess"),
-    path('feedback.html',views.save_feedback,name="fetch_question"),
-    path('fetch_question.html',views.fetch_question,name="fetch_question"),
-    path('save_human_response.html',views.save_human_response,name="save_human_response"),
+    path('create_game',views.create_game, name="create_game"),
+    path('fetch_responses',views.fetch_responses,name="fetch_responses"),
+    path('check_guess',views.check_guess,name="check_guess"),
+    path('feedback',views.save_feedback,name="fetch_question"),
+    path('fetch_question',views.fetch_question,name="fetch_question"),
+    path('save_human_response',views.save_human_response,name="save_human_response"),
 ]
 
 '''
