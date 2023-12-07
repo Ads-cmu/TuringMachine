@@ -49,8 +49,14 @@ def check_guess(request):
     guess = request.GET.get('guess')
     game_id = request.GET.get('game_id')
     game = Game.objects.get(id=game_id)
-    guess = guess == 'True'
-    win = guess==game.a_is_model
+    if game.a_is_model
+        actual_answer = "A"
+    else:
+        actual_answer = "B"
+    if actual_answer == guess:
+        win = True
+    else:
+        win = False
     game.correct_guess=win
     game.save()
     return JsonResponse({'win':win}) 
