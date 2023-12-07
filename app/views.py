@@ -49,7 +49,7 @@ def check_guess(request):
     guess = request.GET.get('guess')
     game_id = request.GET.get('game_id')
     game = Game.objects.get(id=game_id)
-    if game.a_is_model
+    if game.a_is_model:
         actual_answer = "A"
     else:
         actual_answer = "B"
